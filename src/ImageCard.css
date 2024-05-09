@@ -1,0 +1,63 @@
+.image-card {
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease-in-out;
+  border-radius: 8px;
+  height: 450px;
+  display: flex;
+  flex-direction: column;
+}
+
+.image-card:hover {
+  transform: scale(1.03);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+}
+
+.card-image {
+  height: 250px;
+  width: 100%;
+  object-fit: cover;
+}
+
+.card-body {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.card-title, .card-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.card-text {
+  flex-grow: 1;
+}
+
+.download-btn {
+  background-color: #007bff;
+  border-color: #007bff;
+  color: white;
+  margin-right: 10px;
+}
+
+.download-btn:hover {
+  background-color: #0056b3;
+  border-color: #004085;
+}
+
+.custom-checkbox {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.custom-checkbox input {
+  cursor: pointer;
+  margin-right: 5px;
+}
+
+.custom-checkbox label {
+  cursor: pointer;
+  margin: 0;
+}
