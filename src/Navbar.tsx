@@ -10,7 +10,7 @@ interface NavbarProps {
   onSortByName: () => void;
   onToggleFavorites: () => void;
   sortOrder: 'asc' | 'desc';
-  showFavorites: boolean;  // Add this to manage the toggle button text
+  showFavorites: boolean;
 }
 
 
@@ -22,7 +22,7 @@ const Navbar: React.FC<NavbarProps> = ({
   onSortByName,
   onToggleFavorites,
   sortOrder,
-  showFavorites  // Make sure to receive this prop
+  showFavorites
 }) => {
   const [searchTerm, setSearchTerm] = useState('');
 
