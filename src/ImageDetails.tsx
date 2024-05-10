@@ -1,7 +1,7 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import { Container, Row, Col, Image, Card, Button } from 'react-bootstrap';
-import { ArrowLeft, Download } from 'react-bootstrap-icons';
+import { ArrowLeft } from 'react-bootstrap-icons';
 import { useNavigate } from 'react-router-dom';
 
 interface ImageDetailsProps {
@@ -73,7 +73,7 @@ const ImageDetails: React.FC<ImageDetailsProps> = ({ images }) => {
                 onClick={handleDownload}
                 className="mt-4"
               >
-                <Download /> Download Image
+                View Image
               </Button>
             </Card.Body>
           </Col>
