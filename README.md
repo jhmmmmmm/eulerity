@@ -1,7 +1,6 @@
 # Run the project
 
-### `npm install`
-### `npm start`
+### `npm install && npm start`
 
 ### Project Overview
 
