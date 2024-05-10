@@ -8,65 +8,69 @@ interface ImageGalleryProps {
 }
 
 const ImageGallery: React.FC<ImageGalleryProps> = ({ images }) => {
-  const [selectedImages, setSelectedImages] = useState<string[]>([]);
+  const [likedImages, setLikedImages] = useState<string[]>([]);
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
   const [searchTerm, setSearchTerm] = useState('');
+  const [showFavorites, setShowFavorites] = useState(false);
+  const [sortInitiated, setSortInitiated] = useState(false);
 
-  const handleSelectAll = () => {
-    const allTitles = images.map((image) => image.title);
-    setSelectedImages(allTitles);
+  const handleLikeAll = () => {
+    setLikedImages(images.map(image => image.title));
   };
 
-  const handleClearSelection = () => {
-    setSelectedImages([]);
+  const handleClearLikes = () => {
+    setLikedImages([]);
   };
 
-  const handleSelectImage = (title: string) => {
-    if (selectedImages.includes(title)) {
-      setSelectedImages(selectedImages.filter((selectedTitle) => selectedTitle !== title));
+  const handleLikeImage = (title: string) => {
+    if (likedImages.includes(title)) {
+      setLikedImages(prevLikedImages => prevLikedImages.filter(likedTitle => likedTitle !== title));
     } else {
-      setSelectedImages([...selectedImages, title]);
+      setLikedImages(prevLikedImages => [...prevLikedImages, title]);
     }
   };
 
   const handleSortByName = () => {
-    setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
+    setSortOrder(prevSortOrder => prevSortOrder === 'asc' ? 'desc' : 'asc');
+    setSortInitiated(true);
   };
 
-  const handleSearch = (searchTerm: string) => {
-    setSearchTerm(searchTerm);
+  const handleSearch = (newSearchTerm: string) => {
+    setSearchTerm(newSearchTerm);
   };
 
-  const sortedImages = [...images].sort((a, b) => {
-    if (sortOrder === 'asc') {
-      return a.title.localeCompare(b.title);
-    } else {
-      return b.title.localeCompare(a.title);
-    }
+  const toggleFavorites = () => {
+    setShowFavorites(prevShowFavorites => !prevShowFavorites);
+  };
+
+  let displayImages = images.filter(image => {
+    const matchesSearchTerm = image.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      image.description.toLowerCase().includes(searchTerm.toLowerCase());
+    return showFavorites ? likedImages.includes(image.title) && matchesSearchTerm : matchesSearchTerm;
   });
 
-  const filteredImages = sortedImages.filter((image) => {
-    const titleMatch = image.title.toLowerCase().includes(searchTerm.toLowerCase());
-    const descriptionMatch = image.description.toLowerCase().includes(searchTerm.toLowerCase());
-    return titleMatch || descriptionMatch;
-  });
+  if (sortInitiated) {
+    displayImages.sort((a, b) => sortOrder === 'asc' ? a.title.localeCompare(b.title) : b.title.localeCompare(a.title));
+  }
 
   return (
     <Container>
       <Navbar
         onSearch={handleSearch}
-        onSelectAll={handleSelectAll}
-        onClearSelection={handleClearSelection}
+        onLikeAll={handleLikeAll}
+        onClearLikes={handleClearLikes}
         onSortByName={handleSortByName}
+        onToggleFavorites={toggleFavorites}
         sortOrder={sortOrder}
+        showFavorites={showFavorites}
       />
       <Row>
-        {filteredImages.map((image) => (
+        {displayImages.map(image => (
           <Col key={image.title} sm={6} md={4} lg={3}>
             <ImageCard
               image={image}
-              onSelect={handleSelectImage}
-              selected={selectedImages.includes(image.title)}
+              onLike={handleLikeImage}
+              liked={likedImages.includes(image.title)}
             />
           </Col>
         ))}

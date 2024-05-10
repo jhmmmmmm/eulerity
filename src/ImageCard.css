@@ -32,6 +32,7 @@
 
 .card-text {
   flex-grow: 1;
+  margin-bottom: 5px;
 }
 
 .download-btn {
@@ -39,22 +40,19 @@
   border-color: #007bff;
   color: white;
   margin-right: 10px;
+  width: 100px;
+  height: 50px;
+}
+
+.heart-btn{
+  margin-right: 10px;
+  width: 50px;
+  height: 50px;
 }
 
 .download-btn:hover {
   background-color: #0056b3;
   border-color: #004085;
-}
-
-.custom-checkbox {
-  display: flex;
-  align-items: center;
-  margin-top: 10px;
-}
-
-.custom-checkbox input {
-  cursor: pointer;
-  margin-right: 5px;
 }
 
 .custom-checkbox label {

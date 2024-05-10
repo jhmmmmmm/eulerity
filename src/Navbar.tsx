@@ -5,18 +5,24 @@ import ImageLogo from './assets/image.png';
 
 interface NavbarProps {
   onSearch: (searchTerm: string) => void;
-  onSelectAll: () => void;
-  onClearSelection: () => void;
+  onLikeAll: () => void;
+  onClearLikes: () => void;
   onSortByName: () => void;
+  onToggleFavorites: () => void;
   sortOrder: 'asc' | 'desc';
+  showFavorites: boolean;  // Add this to manage the toggle button text
 }
+
+
 
 const Navbar: React.FC<NavbarProps> = ({
   onSearch,
-  onSelectAll,
-  onClearSelection,
+  onLikeAll,
+  onClearLikes,
   onSortByName,
+  onToggleFavorites,
   sortOrder,
+  showFavorites  // Make sure to receive this prop
 }) => {
   const [searchTerm, setSearchTerm] = useState('');
 
@@ -32,16 +38,19 @@ const Navbar: React.FC<NavbarProps> = ({
   return (
     <BootstrapNavbar expand="lg" className="mb-4">
       <BootstrapNavbar.Brand>
-        <img src={ImageLogo} alt="Eulerity" style={{ height: '40px' }} />
+        <img src={ImageLogo} alt="Eulerity" style={{ height: '50px' }} />
       </BootstrapNavbar.Brand>
       <BootstrapNavbar.Toggle aria-controls="basic-navbar-nav" />
       <BootstrapNavbar.Collapse id="basic-navbar-nav" className="justify-content-end">
         <Nav className="ml-auto">
-          <Button variant="primary" onClick={onSelectAll} className="me-3">
-            Select All
+          <Button variant="primary" onClick={onLikeAll} className="me-3">
+            Like All
           </Button>
-          <Button variant="primary" onClick={onClearSelection} className="me-3">
-            Clear Selection
+          <Button variant="primary" onClick={onClearLikes} className="me-3">
+            Unlike All
+          </Button>
+          <Button variant="primary" onClick={onToggleFavorites} className="me-3">
+            {showFavorites ? "Show All" : "Show My Favorites"}
           </Button>
           <Button variant="primary" onClick={onSortByName} className="me-3">
             Sort by Name {sortOrder === 'asc' ? 'A-Z' : 'Z-A'}
